@@ -1,12 +1,161 @@
-﻿// clear-bang.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
+﻿// clear_bang.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-#include <iostream>
+#include"clear_bang.h"
 
-int main()
+void ShowMenu()
 {
-    std::cout << "Hello World!\n";
+	printf("*********************************\n");
+	printf("*********************************\n");
+	printf("**********输入1 开始游戏*********\n");
+	printf("**********输入0 退出游戏*********\n");
+	printf("*********************************\n");
+	printf("*********************************\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("请输入：\n");
+
 }
+
+
+void InitMap()
+{
+	int count = 0;
+
+	for (int i = 0; i < MAX_ROW; i++)// 初始化地图
+		for (int j = 0; j < MAX_COLUMN; j++)
+		{
+			map[i][j] = 0;
+			show_map[i][j] = '*';
+		}
+
+	while (count != BANG_NUMBER)        //埋雷
+	{
+		int x = rand() % ROW + 1;
+		int y = rand() % COLUMN + 1;
+		if (map[x][y] != 1)
+		{
+			map[x][y] = 1;
+			++count;
+		}
+	}
+}
+
+void Show_BangMap()
+{
+	system("CLS");
+	printf("*********************************\n");
+	printf("*********************************\n");
+	printf("\n");
+	printf("   ");                  //打印 行列数
+	for (int i = 1; i <= ROW; i++)
+		printf(" %d ", i);
+	printf("\n");
+	for (int i = 1; i <= ROW; i++)  //  打印地图
+	{
+		printf(" %d ", i);
+		for (int j = 1; j <= COLUMN; j++)
+			printf(" %c ", show_map[i][j]);
+		printf("\n");
+	}
+}
+
+
+int GetBangNum(int x, int y)       //判断雷数
+{
+	//将周围的所有格子的数加起来来判断是否有雷
+	return map[x - 1][y - 1] + map[x][y - 1] + map[x + 1][y - 1] + map[x - 1][y] + map[x + 1][y] + map[x - 1][y + 1] + map[x][y + 1] + map[x + 1][y + 1];
+}
+
+void OpenMap(int x, int y)         //判断展开
+{
+	if (GetBangNum(x, y) == 0)
+	{
+		show_map[x][y] = ' ';
+		if (x - 1 > 0 && y - 1 > 0 && show_map[x - 1][y - 1] == '*')
+			OpenMap(x - 1, y - 1);
+		if (x - 1 > 0 && show_map[x - 1][y] == '*')
+			OpenMap(x - 1, y);
+		if (y - 1 > 0 && show_map[x][y - 1] == '*')
+			OpenMap(x, y - 1);
+		if (x + 1 <= ROW && y + 1 <= COLUMN && show_map[x + 1][y + 1] == '*')
+			OpenMap(x + 1, y + 1);
+		if (y + 1 <= COLUMN && show_map[x][y + 1] == '*')
+			OpenMap(x, y + 1);
+		if (x + 1 <= ROW && show_map[x + 1][y] == '*')
+			OpenMap(x + 1, y);
+		if (x - 1 > 0 && y + 1 <= COLUMN && show_map[x - 1][y + 1] == '*')
+			OpenMap(x - 1, y + 1);
+		if (x + 1 <= ROW && y - 1 >= 0 && show_map[x + 1][y - 1])
+			OpenMap(x + 1, y - 1);
+	}
+	else
+		show_map[x][y] = GetBangNum(x, y) + 48;
+}
+
+int  IsFull()   // 判断游戏是否结束
+{
+	int count = 0;
+	for (int i = 1; i <= ROW; i++)
+		for (int j = 1; j <= COLUMN; j++)
+			if (show_map[i][j] == '*')
+				++count;
+	if (count == BANG_NUMBER)
+		return TRUE;
+	else
+		return FALSE;
+}
+
+void Playing()
+{
+	srand((unsigned int)time(NULL));
+	InitMap();
+	Show_BangMap();
+	int x, y;
+	while (TRUE)
+	{
+		printf("输入坐标：\n");
+		scanf_s("%d%d", &x, &y);
+		if (x > 0 && y > 0 && x <= ROW && y <= COLUMN)
+		{
+			if (map[x][y] == 1)        //踩雷
+			{
+				for (int i = 1; i <= ROW; i++)
+					for (int j = 1; j <= COLUMN; j++)
+						if (show_map[i][j] == '*')
+							show_map[i][j] = '!';
+				Show_BangMap();
+				printf("\n");
+				printf("失败！！游戏结束！！");
+				break;
+			}
+			else                    //没有踩雷
+			{
+				if (GetBangNum(x, y) == 0)
+					OpenMap(x, y);
+				else
+					show_map[x][y] = GetBangNum(x, y) + 48;
+				Show_BangMap();
+			}
+
+			if (IsFull() == TRUE)     //判断胜利
+			{
+				for (int i = 1; i <= ROW; i++)
+					for (int j = 1; j <= COLUMN; j++)
+						if (show_map[i][j] == '*')
+							show_map[i][j] = '!';
+				void Show_BangMap();
+				printf("游戏胜利！！！");
+				break;
+			}
+		}
+		else
+			printf("输入有误");
+	}
+}
+
+
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
 // 调试程序: F5 或调试 >“开始调试”菜单
