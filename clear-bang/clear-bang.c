@@ -19,6 +19,7 @@ void ShowMenu()
 }
 
 
+
 void InitMap()
 {
 	int count = 0;
