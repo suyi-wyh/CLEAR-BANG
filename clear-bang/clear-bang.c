@@ -14,7 +14,7 @@ void ShowMenu()
 	printf("\n");
 	printf("\n");
 	printf("\n");
-	printf("请输入：\n");
+	printf("\t请输入：\n");
 
 }
 
@@ -147,7 +147,7 @@ void Playing()
 						if (show_map[i][j] == '*')
 							show_map[i][j] = '!';
 				void Show_BangMap();
-				printf("游戏胜利！！！");
+				printf("游戏胜利！！！\n\n\n");
 				break;
 			}
 		}

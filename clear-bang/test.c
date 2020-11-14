@@ -10,7 +10,6 @@ void test()
 		switch (a)
 		{
 		case 1:
-
 			Playing();
 			break;
 		case 2:
