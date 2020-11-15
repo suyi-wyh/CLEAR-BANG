@@ -20,6 +20,7 @@ void test()
 		}
 		test();
 	}
+	return;
 }
 
 int main()

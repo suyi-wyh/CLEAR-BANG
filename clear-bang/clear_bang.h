@@ -25,3 +25,5 @@ void OpenMap(int x, int y);  // 展开判断
 int  GetBangNum(int x, int y); //判断雷数
 int  IsFull();  //判断游戏结束
 void Playing();   //游戏过程
+
+void CheckFirst(); //检查首次选择时选择的不是雷
