@@ -31,7 +31,7 @@ void InitMap()
 			show_map[i][j] = '*';
 		}
 
-	while (count <= BANG_NUMBER)        //埋雷
+	while (count < BANG_NUMBER)        //埋雷
 	{
 		int x = rand() % ROW + 1;
 		int y = rand() % COLUMN + 1;
@@ -75,7 +75,7 @@ void CheckFirst()   //第一次输入时 检查判断
 		{
 			if (map[x][y] == 1)   //  如果第一次命中雷元素
 			{
-				map[x][y] == 0;
+				map[x][y] = 0;
 				while (TRUE)    //  重新排放一个雷元素
 				{
 					int x = rand() % ROW + 1;
@@ -86,8 +86,10 @@ void CheckFirst()   //第一次输入时 检查判断
 						break;
 					}
 				}
-				OpenMap(x, y);
 			}
+			OpenMap(x, y);
+			Show_BangMap();
+			break;
 		}
 		else
 		{
@@ -150,7 +152,7 @@ void Playing()
 	InitMap();
 	Show_BangMap();
 	int x, y;
-	//CheckFirst();
+	CheckFirst();
 	while (TRUE)
 	{
 		printf("输入坐标：\n");

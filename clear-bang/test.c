@@ -12,7 +12,7 @@ void test()
 		case 1:
 			Playing();
 			break;
-		case 2:
+		case 0:
 			printf("ÓÎÏ·½áÊø£¡");
 			return;
 		default:
