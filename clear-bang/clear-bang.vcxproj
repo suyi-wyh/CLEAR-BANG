@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="clear-bang.c" />
+    <ClCompile Include="choosedif.c" />
     <ClCompile Include="test.c" />
   </ItemGroup>
   <ItemGroup>

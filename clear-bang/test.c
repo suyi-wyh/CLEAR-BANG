@@ -10,6 +10,7 @@ void test()
 		switch (a)
 		{
 		case 1:
+			ChooseDif();
 			Playing();
 			break;
 		case 0:

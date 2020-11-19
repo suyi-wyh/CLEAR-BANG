@@ -49,15 +49,15 @@ void Show_BangMap()
 	printf("*********************************\n");
 	printf("*********************************\n");
 	printf("\n");
-	printf("   ");                  //打印 行列数
+	printf("\t");                  //打印 行列数
 	for (int i = 1; i <= ROW; i++)
-		printf(" %d ", i);
+		printf("%d\t", i);
 	printf("\n");
 	for (int i = 1; i <= ROW; i++)  //  打印地图
 	{
-		printf(" %d ", i);
+		printf("%d ", i);
 		for (int j = 1; j <= COLUMN; j++)
-			printf(" %c ", show_map[i][j]);
+			printf("\t%c ", show_map[i][j]);
 		printf("\n");
 	}
 }
